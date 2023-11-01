@@ -1,0 +1,27 @@
+From c4771922d64cb1540968ab4b5a9bfbe1148cb211 Mon Sep 17 00:00:00 2001
+From: Michal Sekletar <msekleta@redhat.com>
+Date: Tue, 18 Dec 2018 11:34:56 +0100
+Subject: [PATCH] rules: disable biosdevname by default
+
+---
+ biosdevname.rules.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/biosdevname.rules.in b/biosdevname.rules.in
+index 31b003c..1dcca74 100644
+--- a/biosdevname.rules.in
++++ b/biosdevname.rules.in
+@@ -12,8 +12,8 @@ ENV{biosdevname}=="?*", ENV{UDEV_BIOSDEVNAME}="$env{biosdevname}"
+ ENV{UDEV_BIOSDEVNAME}=="0", GOTO="netdevicename_end"
+ ENV{UDEV_BIOSDEVNAME}=="1", GOTO="netdevicename_start"
+ 
+-# uncomment the next line for biosdevname to be off by default
+-# GOTO="netdevicename_end"
++# off by default
++GOTO="netdevicename_end"
+ 
+ LABEL="netdevicename_start"
+ 
+-- 
+2.17.2
+

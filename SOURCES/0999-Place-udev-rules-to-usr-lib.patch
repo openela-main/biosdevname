@@ -1,0 +1,25 @@
+From 6e29eb19cfec3b657eb6ed8121898e80c1c39e6b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?V=C3=A1clav=20Pavl=C3=ADn?= <vpavlin@redhat.com>
+Date: Mon, 23 Sep 2013 14:05:59 +0200
+Subject: [PATCH] Place udev rules to /usr/lib
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 177f54a..474c064 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -68,7 +68,7 @@ AC_CHECK_FUNCS([dup2 gettimeofday memset munmap select socket strcasecmp strchr
+ 
+ # this is ugly, but accounts for SLES 10, Red Hat/Fedora, and Ubuntu
+ # handles default udev rules as of udev 114 or thereabouts
+-RULEDEST=/lib/udev/rules.d/71-biosdevname.rules
++RULEDEST=${prefix}/lib/udev/rules.d/71-biosdevname.rules
+ 
+ if [[ -e /etc/udev/rules.d/60-net.rules ]]; then
+      # RHEL 5 / Fedora
+-- 
+2.14.3
+
