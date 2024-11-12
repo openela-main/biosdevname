@@ -1,6 +1,6 @@
 Name:		biosdevname
 Version:	0.7.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Udev helper for naming devices per BIOS names
 License:	GPLv2
 URL:		http://linux.dell.com/files/%{name}
@@ -19,6 +19,10 @@ BuildRequires: make
 
 Patch1: 0001-Disable-biosdevname-by-default.patch
 Patch2: 0002-Place-udev-rules-to-usr-lib.patch
+Patch3: 0001-Prevent-infinite-recursion-in-dmidecode.c-smbios_set.patch
+Patch4: 0001-Add-buffer-read-helper-using-read-explicitly.patch
+Patch5: 0001-Read-DMI-entries-from-sys-firmware-dmi-tables-DMI.patch
+Patch6: 0001-Add-SMBIOS-3.x-support.patch
 
 %description
 biosdevname in its simplest form takes a kernel device name as an
@@ -29,7 +33,7 @@ name (e.g. eth0).
 
 %prep
 %setup -q
-%autopatch
+%autopatch -p1
 
 %build
 autoreconf -fvi
@@ -46,6 +50,9 @@ make install install-data DESTDIR=%{buildroot}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu May 16 2024 Michal Sekletar <msekleta@redhat.com> - 0.7.3-10
+- Make sure biosdevname works on systems with enabled SecureBoot (RHEL-18300)
+
 * Mon Aug 09 2021 Mohan Boddu <mboddu@redhat.com> - 0.7.3-9
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
